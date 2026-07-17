@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Particle Playground</title>
   <style>
-    html, body { margin: 0; padding: 0; background: #0d1117; overflow: hidden; }
-    canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+    html, body { margin: 0; padding: 0; background: #0d1117; overflow: hidden; height: 100%; }
+    canvas { display: block; width: 100vw; height: 100vh; cursor: crosshair; }
     #hud {
       position: fixed; top: 12px; left: 14px;
       font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -24,8 +24,10 @@
     const countEl = document.getElementById('count');
     let W, H;
     function resize() {
-      W = canvas.width = canvas.clientWidth * devicePixelRatio;
-      H = canvas.height = canvas.clientHeight * devicePixelRatio;
+      W = canvas.width = window.innerWidth * devicePixelRatio;
+      H = canvas.height = window.innerHeight * devicePixelRatio;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
     }
     resize();
     window.addEventListener('resize', resize);
