@@ -18,7 +18,7 @@ A collection of things I find fun, curious, or worth sharing — outside of work
 
 A slowly rotating 3D star field. Move your mouse to shift the view.
 
-<iframe src="/something-interesting/particles.html" width="100%" height="420" style="border:0;border-radius:8px;"></iframe>
+<iframe src="/something-interesting/starfield.html" width="100%" height="420" style="border:0;border-radius:8px;"></iframe>
 
 ## Random-Walk K-Line
 

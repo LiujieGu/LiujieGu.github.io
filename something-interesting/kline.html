@@ -7,23 +7,13 @@
   <style>
     html, body { margin: 0; padding: 0; background: #0d1117; overflow: hidden; height: 100%; }
     canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
-    #hud {
-      position: fixed; top: 12px; left: 14px; z-index: 10;
-      font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
-      color: #8b949e; user-select: none; pointer-events: none;
-      text-shadow: 0 1px 3px #000;
-    }
-    #hud b { color: #58a6ff; }
   </style>
 </head>
 <body>
-  <div id="hud">Random-Walk K-Line &nbsp;|&nbsp; price: <b id="px">--</b> &nbsp; ret: <b id="ret">--</b></div>
   <canvas id="c"></canvas>
   <script>
     const canvas = document.getElementById('c');
     const ctx = canvas.getContext('2d');
-    const pxEl = document.getElementById('px');
-    const retEl = document.getElementById('ret');
     const DPR = Math.min(devicePixelRatio || 1, 2);
     let W, H;
     function resize() {
@@ -35,13 +25,12 @@
     if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
     else window.addEventListener('resize', resize);
 
-    const N = 80;            // visible candles
+    const N = 80;
     const basePrice = 100;
     let price = basePrice;
-    const candles = [];      // {o,h,l,c}
+    const candles = [];
     function newCandle() {
       const o = price;
-      // gaussian-ish random walk
       const drift = (Math.random() - 0.5) * 2.4;
       const vol = 0.6 + Math.random() * 1.8;
       let c = o + drift * vol;
@@ -56,48 +45,56 @@
       ctx.fillStyle = '#0d1117';
       ctx.fillRect(0, 0, W, H);
 
-      // price range
       let hi = -Infinity, lo = Infinity;
       for (const k of candles) { hi = Math.max(hi, k.h); lo = Math.min(lo, k.l); }
       const pad = (hi - lo) * 0.1 + 0.001;
       hi += pad; lo -= pad;
-      const plotH = H * 0.86, top = H * 0.07;
-      const yOf = p => top + (1 - (p - lo) / (hi - lo)) * plotH;
+      const plotTop = H * 0.10, plotH = H * 0.80;
+      const yOf = p => plotTop + (1 - (p - lo) / (hi - lo)) * plotH;
 
-      // grid
-      ctx.strokeStyle = 'rgba(139,148,158,0.12)';
-      ctx.lineWidth = 1;
+      // grid + price labels
+      ctx.font = (12 * DPR) + 'px ui-monospace, Menlo, monospace';
+      ctx.textBaseline = 'middle';
       for (let g = 0; g <= 4; g++) {
-        const y = top + plotH * g / 4;
+        const y = plotTop + plotH * g / 4;
+        ctx.strokeStyle = 'rgba(139,148,158,0.12)';
+        ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+        const pv = hi - (hi - lo) * g / 4;
+        ctx.fillStyle = '#6b7a99';
+        ctx.fillText(pv.toFixed(1), 8 * DPR, y);
       }
 
       const STEP = Math.min(10 * DPR, W / (N + 2));
       const totalW = candles.length * STEP;
-      const startX = (W - totalW) / 2;
+      const startX = Math.max(0, (W - totalW) / 2);
       candles.forEach((k, i) => {
         const x = startX + i * STEP;
         const up = k.c >= k.o;
         const col = up ? '#26a69a' : '#ef5350';
-        // wick
         ctx.strokeStyle = col;
         ctx.lineWidth = 1 * DPR;
         ctx.beginPath();
         ctx.moveTo(x + STEP * 0.5, yOf(k.h));
         ctx.lineTo(x + STEP * 0.5, yOf(k.l));
         ctx.stroke();
-        // body
         const yo = yOf(k.o), yc = yOf(k.c);
         const bh = Math.max(1 * DPR, Math.abs(yc - yo));
         ctx.fillStyle = col;
         ctx.fillRect(x + STEP * 0.15, Math.min(yo, yc), STEP * 0.7, bh);
       });
 
+      // HUD drawn on canvas (avoids iframe DOM layering issues)
       const last = candles[candles.length - 1].c;
-      pxEl.textContent = last.toFixed(2);
       const r = (last / basePrice - 1) * 100;
-      retEl.textContent = (r >= 0 ? '+' : '') + r.toFixed(2) + '%';
-      retEl.style.color = r >= 0 ? '#26a69a' : '#ef5350';
+      const up = r >= 0;
+      ctx.textBaseline = 'top';
+      ctx.font = (13 * DPR) + 'px ui-monospace, Menlo, monospace';
+      ctx.fillStyle = '#8b949e';
+      ctx.fillText('Random-Walk K-Line', 10 * DPR, 10 * DPR);
+      ctx.fillStyle = up ? '#26a69a' : '#ef5350';
+      ctx.fillText('price ' + last.toFixed(2) + '   ret ' + (up ? '+' : '') + r.toFixed(2) + '%',
+                   10 * DPR, 30 * DPR);
     }
 
     function step() {
