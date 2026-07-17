@@ -58,12 +58,12 @@
     function tick() {
       ctx.fillStyle = 'rgba(5, 7, 13, 0.35)';
       ctx.fillRect(0, 0, W, H);
-      mx += (tmx - mx) * 0.05;
-      my += (tmy - my) * 0.05;
-      angle += 0.0008;
+      mx += (tmx - mx) * 0.08;
+      my += (tmy - my) * 0.08;
+      angle += 0.0003;
 
       const ca = Math.cos(angle), sa = Math.sin(angle);
-      const panX = mx * W * 0.25, panY = my * H * 0.25;
+      const panX = mx * W * 0.55, panY = my * H * 0.55;
 
       for (const s of stars) {
         s.tw += s.ts;
