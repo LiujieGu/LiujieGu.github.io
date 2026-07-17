@@ -2,17 +2,17 @@
 layout: default
 ---
 
-# 你好，我是你的名字
+# Hi, I'm Liu Jie
 
-这里写你的个人简介。可以介绍你的职业、兴趣、正在做的事情等。
+Write your personal bio here. You can introduce your career, interests, and what you're currently working on.
 
-## 关于我
+## About Me
 
-- 💼 职业 / 方向
-- 🎯 兴趣 / 爱好
-- 📍 所在地
+- 💼 Quantitative Researcher
+- 🎯 Interests / Hobbies
+- 📍 Pudong, Shanghai
 
-## 联系我
+## Contact
 
-- Email: your@email.com
-- GitHub: [your-username](https://github.com/your-username)
+- Email: georgeglj21@gmail.com
+- GitHub: [LiujieGu](https://github.com/LiujieGu)
