@@ -41,6 +41,12 @@
     }
     for (let i = 0; i < N; i++) candles.push(newCandle());
 
+    // push a new candle every 600ms
+    setInterval(() => {
+      candles.push(newCandle());
+      if (candles.length > N) candles.shift();
+    }, 600);
+
     function draw() {
       ctx.fillStyle = '#0d1117';
       ctx.fillRect(0, 0, W, H);
@@ -49,10 +55,9 @@
       for (const k of candles) { hi = Math.max(hi, k.h); lo = Math.min(lo, k.l); }
       const pad = (hi - lo) * 0.1 + 0.001;
       hi += pad; lo -= pad;
-      const plotTop = H * 0.10, plotH = H * 0.80;
+      const plotTop = H * 0.14, plotH = H * 0.76;
       const yOf = p => plotTop + (1 - (p - lo) / (hi - lo)) * plotH;
 
-      // grid + price labels
       ctx.font = (12 * DPR) + 'px ui-monospace, Menlo, monospace';
       ctx.textBaseline = 'middle';
       for (let g = 0; g <= 4; g++) {
@@ -62,7 +67,7 @@
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
         const pv = hi - (hi - lo) * g / 4;
         ctx.fillStyle = '#6b7a99';
-        ctx.fillText(pv.toFixed(1), 8 * DPR, y);
+        ctx.fillText(pv.toFixed(1), 6 * DPR, y);
       }
 
       const STEP = Math.min(10 * DPR, W / (N + 2));
@@ -84,7 +89,6 @@
         ctx.fillRect(x + STEP * 0.15, Math.min(yo, yc), STEP * 0.7, bh);
       });
 
-      // HUD drawn on canvas (avoids iframe DOM layering issues)
       const last = candles[candles.length - 1].c;
       const r = (last / basePrice - 1) * 100;
       const up = r >= 0;
@@ -94,16 +98,11 @@
       ctx.fillText('Random-Walk K-Line', 10 * DPR, 10 * DPR);
       ctx.fillStyle = up ? '#26a69a' : '#ef5350';
       ctx.fillText('price ' + last.toFixed(2) + '   ret ' + (up ? '+' : '') + r.toFixed(2) + '%',
-                   10 * DPR, 30 * DPR);
-    }
+                   10 * DPR, 32 * DPR);
 
-    function step() {
-      candles.push(newCandle());
-      if (candles.length > N) candles.shift();
-      draw();
+      requestAnimationFrame(draw);
     }
-    draw();
-    setInterval(step, 600);
+    requestAnimationFrame(draw);
   </script>
 </body>
 </html>
