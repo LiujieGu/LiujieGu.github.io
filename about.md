@@ -4,13 +4,14 @@ layout: default
 
 # Hi, I'm Liu Jie
 
-Write your personal bio here. You can introduce your career, interests, and what you're currently working on.
+I'm a quantitative researcher based in Shanghai, working at a quantitative hedge fund. I build systematic trading strategies for China's A-share market and the crypto market.
 
 ## About Me
 
-- 💼 Quantitative Researcher
-- 🎯 Interests / Hobbies
-- 📍 Pudong, Shanghai
+- 💼 Quantitative Researcher at a Shanghai-based quant hedge fund — working on A-share quantitative stock selection and crypto market quant research
+- 🎓 M.S. in Electronic Engineering, Tsinghua University — research focus: computer vision, medical AI, and computational imaging
+- 🎓 B.S. in Electronic Science and Technology, Fudan University
+- 🏋️ Hobbies: fitness, football, and gaming
 
 ## Contact
 
