@@ -6,7 +6,7 @@
   <title>Particle Playground</title>
   <style>
     html, body { margin: 0; padding: 0; background: #0d1117; overflow: hidden; height: 100%; }
-    canvas { display: block; width: 100vw; height: 100vh; cursor: crosshair; }
+    canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; }
     #hud {
       position: fixed; top: 12px; left: 14px;
       font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -24,13 +24,16 @@
     const countEl = document.getElementById('count');
     let W, H;
     function resize() {
-      W = canvas.width = window.innerWidth * devicePixelRatio;
-      H = canvas.height = window.innerHeight * devicePixelRatio;
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      const rect = canvas.getBoundingClientRect();
+      W = canvas.width = Math.max(1, Math.round(rect.width * devicePixelRatio));
+      H = canvas.height = Math.max(1, Math.round(rect.height * devicePixelRatio));
     }
     resize();
-    window.addEventListener('resize', resize);
+    if (window.ResizeObserver) {
+      new ResizeObserver(resize).observe(canvas);
+    } else {
+      window.addEventListener('resize', resize);
+    }
 
     const GRAVITY = 0.25 * devicePixelRatio;
     const BOUNCE = 0.72;
