@@ -13,3 +13,8 @@ github: LiujieGu
 email: georgeglj21@gmail.com
 
 theme: minima
+
+header_pages:
+  - about.md
+  - blog.md
+  - something-interesting.md
