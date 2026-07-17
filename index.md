@@ -13,3 +13,5 @@ Hi, I'm **Gu Liujie**. This is my personal space on the web.
 - ✨ **[Something Interesting](/something-interesting)** — random stuff I find fun
 
 Use the menu above to navigate. Thanks for stopping by!
+
+<p style="margin-top:3rem;color:#8b949e;font-size:0.9rem;">Dedicated to Z.J. ♡</p>
