@@ -14,6 +14,12 @@ A collection of things I find fun, curious, or worth sharing — outside of work
 - ⚽ Football
 - 🎮 Gaming
 
+## Particle Playground
+
+Click or drag on the canvas to launch particles. They fall under gravity, bounce, and fade.
+
+<iframe src="/something-interesting/particles.html" width="100%" height="520" style="border:0;border-radius:8px;"></iframe>
+
 ## Random notes
 
-*This section is a work in progress. Check back later for more.*
+*More fun stuff coming soon.*
