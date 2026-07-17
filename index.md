@@ -14,12 +14,13 @@ Hi, I'm **Gu Liujie**. This is my personal space on the web.
 
 Use the menu above to navigate. Thanks for stopping by!
 
-<p id="dedicate" style="margin-top:3rem;color:#8b949e;font-size:0.9rem;cursor:pointer;user-select:none;display:inline-block;">Dedicated to Z.J. ♡</p>
+<p id="dedicate" style="margin-top:3rem;color:#8b949e;font-size:0.9rem;opacity:0;transition:opacity .4s;user-select:none;">Dedicated to Z.J. ♡</p>
 <canvas id="hearts" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:15;"></canvas>
 
 <script>
 (function () {
-  const btn = document.getElementById('dedicate');
+  const title = document.querySelector('.site-title');
+  const msg = document.getElementById('dedicate');
   const cv = document.getElementById('hearts');
   const ctx = cv.getContext('2d');
   const DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -32,15 +33,12 @@ Use the menu above to navigate. Thanks for stopping by!
   window.addEventListener('resize', size);
 
   const hearts = [];
-  function burst() {
-    const rect = btn.getBoundingClientRect();
-    const ox = (rect.left + rect.width / 2) * DPR;
-    const oy = rect.top * DPR;
+  function burst(x, y) {
     for (let i = 0; i < 24; i++) {
       const a = Math.random() * Math.PI * 2;
       const sp = (1 + Math.random() * 3) * DPR;
       hearts.push({
-        x: ox, y: oy,
+        x: x, y: y,
         vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 2 * DPR,
         r: (4 + Math.random() * 5) * DPR, life: 1
       });
@@ -73,6 +71,17 @@ Use the menu above to navigate. Thanks for stopping by!
     requestAnimationFrame(loop);
   }
   loop();
-  btn.addEventListener('click', burst);
+
+  if (title) {
+    title.style.cursor = 'pointer';
+    title.addEventListener('click', function (e) {
+      e.preventDefault();
+      const rect = title.getBoundingClientRect();
+      burst((rect.left + rect.width / 2) * DPR, rect.bottom * DPR);
+      msg.style.opacity = '1';
+      clearTimeout(title._t);
+      title._t = setTimeout(function () { msg.style.opacity = '0'; }, 3000);
+    });
+  }
 })();
 </script>
