@@ -3,94 +3,88 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Particle Playground</title>
+  <title>Starfield</title>
   <style>
-    html, body { margin: 0; padding: 0; background: #0d1117; overflow: hidden; height: 100%; }
+    html, body { margin: 0; padding: 0; background: #05070d; overflow: hidden; height: 100%; }
     canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; }
     #hud {
       position: fixed; top: 12px; left: 14px;
       font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
-      color: #8b949e; user-select: none; pointer-events: none;
+      color: #6b7a99; user-select: none; pointer-events: none;
     }
-    #hud b { color: #58a6ff; }
+    #hud b { color: #9ecbff; }
   </style>
 </head>
 <body>
-  <div id="hud">Particles: <b id="count">0</b> &nbsp;|&nbsp; click / drag to launch</div>
+  <div id="hud">Starfield &nbsp;|&nbsp; move mouse to shift the view</div>
   <canvas id="c"></canvas>
   <script>
     const canvas = document.getElementById('c');
     const ctx = canvas.getContext('2d');
-    const countEl = document.getElementById('count');
-    let W, H;
+    let W, H, cx, cy;
+    const DPR = Math.min(devicePixelRatio || 1, 2);
+
     function resize() {
       const rect = canvas.getBoundingClientRect();
-      W = canvas.width = Math.max(1, Math.round(rect.width * devicePixelRatio));
-      H = canvas.height = Math.max(1, Math.round(rect.height * devicePixelRatio));
+      W = canvas.width = Math.max(1, Math.round(rect.width * DPR));
+      H = canvas.height = Math.max(1, Math.round(rect.height * DPR));
+      cx = W / 2; cy = H / 2;
     }
     resize();
-    if (window.ResizeObserver) {
-      new ResizeObserver(resize).observe(canvas);
-    } else {
-      window.addEventListener('resize', resize);
-    }
+    if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+    else window.addEventListener('resize', resize);
 
-    const GRAVITY = 0.25 * devicePixelRatio;
-    const BOUNCE = 0.72;
-    const FRICTION = 0.99;
-    const MAX = 600;
-    const particles = [];
-    const palette = ['#58a6ff', '#79c0ff', '#d2a8ff', '#56d364', '#ffa657', '#f778ba'];
-
-    function spawn(x, y, vx, vy) {
-      if (particles.length >= MAX) particles.shift();
-      particles.push({
-        x, y, vx, vy,
-        r: (2 + Math.random() * 4) * devicePixelRatio,
-        life: 1,
-        color: palette[(Math.random() * palette.length) | 0]
+    // 3D star field projected to 2D
+    const NUM = 900;
+    const stars = [];
+    function rand(a, b) { return a + Math.random() * (b - a); }
+    for (let i = 0; i < NUM; i++) {
+      stars.push({
+        x: rand(-1, 1), y: rand(-1, 1), z: rand(0.05, 1),
+        r: rand(0.4, 1.6), tw: rand(0, Math.PI * 2), ts: rand(0.01, 0.04)
       });
     }
 
-    function pointer(e) {
+    let mx = 0, my = 0, tmx = 0, tmy = 0;
+    canvas.addEventListener('mousemove', e => {
       const rect = canvas.getBoundingClientRect();
-      const px = (e.clientX - rect.left) * devicePixelRatio;
-      const py = (e.clientY - rect.top) * devicePixelRatio;
-      const vx = (Math.random() - 0.5) * 8 * devicePixelRatio;
-      const vy = (Math.random() - 0.5) * 8 * devicePixelRatio - 2 * devicePixelRatio;
-      spawn(px, py, vx, vy);
-    }
+      tmx = (e.clientX - rect.left) / rect.width - 0.5;
+      tmy = (e.clientY - rect.top) / rect.height - 0.5;
+    });
 
-    let dragging = false;
-    canvas.addEventListener('mousedown', e => { dragging = true; pointer(e); });
-    canvas.addEventListener('mousemove', e => { if (dragging) pointer(e); });
-    window.addEventListener('mouseup', () => dragging = false);
-    canvas.addEventListener('touchstart', e => { e.preventDefault(); pointer(e.touches[0]); }, { passive: false });
-    canvas.addEventListener('touchmove', e => { e.preventDefault(); pointer(e.touches[0]); }, { passive: false });
+    const FOV = 0.9;
+    let angle = 0;
 
     function tick() {
-      ctx.fillStyle = 'rgba(13, 17, 23, 0.18)';
+      ctx.fillStyle = 'rgba(5, 7, 13, 0.35)';
       ctx.fillRect(0, 0, W, H);
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.vy += GRAVITY;
-        p.vx *= FRICTION;
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < p.r) { p.x = p.r; p.vx *= -BOUNCE; }
-        if (p.x > W - p.r) { p.x = W - p.r; p.vx *= -BOUNCE; }
-        if (p.y > H - p.r) { p.y = H - p.r; p.vy *= -BOUNCE; p.vx *= FRICTION; }
-        if (p.y < p.r) { p.y = p.r; p.vy *= -BOUNCE; }
-        p.life -= 0.004;
-        if (p.life <= 0) { particles.splice(i, 1); continue; }
-        ctx.globalAlpha = Math.max(p.life, 0);
+      mx += (tmx - mx) * 0.05;
+      my += (tmy - my) * 0.05;
+      angle += 0.0008;
+
+      const ca = Math.cos(angle), sa = Math.sin(angle);
+      const panX = mx * W * 0.25, panY = my * H * 0.25;
+
+      for (const s of stars) {
+        s.tw += s.ts;
+        // rotate around z axis slowly, add depth drift
+        let rx = s.x * ca - s.y * sa;
+        let ry = s.x * sa + s.y * ca;
+        const depth = s.z + 0.02;
+        s.z = depth > 1 ? 0.05 : depth;
+        const k = FOV / s.z;
+        const px = cx + rx * k * W * 0.5 + panX;
+        const py = cy + ry * k * H * 0.5 + panY;
+        if (px < 0 || px > W || py < 0 || py > H) continue;
+        const size = s.r * k * DPR;
+        const tw = 0.55 + 0.45 * Math.sin(s.tw);
+        ctx.globalAlpha = Math.min(1, tw * (1.4 - s.z));
+        ctx.fillStyle = s.z < 0.3 ? '#9ecbff' : (s.z < 0.6 ? '#ffffff' : '#41577a');
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
+        ctx.arc(px, py, Math.max(0.3, size), 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.globalAlpha = 1;
-      countEl.textContent = particles.length;
       requestAnimationFrame(tick);
     }
     tick();

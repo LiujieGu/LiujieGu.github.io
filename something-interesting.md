@@ -14,11 +14,17 @@ A collection of things I find fun, curious, or worth sharing — outside of work
 - ⚽ Football
 - 🎮 Gaming
 
-## Particle Playground
+## Starfield
 
-Click or drag on the canvas to launch particles. They fall under gravity, bounce, and fade.
+A slowly rotating 3D star field. Move your mouse to shift the view.
 
-<iframe src="/something-interesting/particles.html" width="100%" height="520" style="border:0;border-radius:8px;"></iframe>
+<iframe src="/something-interesting/particles.html" width="100%" height="420" style="border:0;border-radius:8px;"></iframe>
+
+## Random-Walk K-Line
+
+A simulated price chart driven by a random walk — a little nod to quant research.
+
+<iframe src="/something-interesting/kline.html" width="100%" height="420" style="border:0;border-radius:8px;"></iframe>
 
 ## Random notes
 
