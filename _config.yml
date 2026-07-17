@@ -1,12 +1,12 @@
-title: 你的名字
-description: 个人简介与博客
-author: 你的名字
+title: Liu Jie
+description: Quantitative researcher, Tsinghua EE, sharing thoughts on quant, CV and life.
+author: Liu Jie
 show_excerpts: true
 
 # 社交链接（按需填写，去掉 # 注释即可）
 # twitter: your-handle
-# github: your-username
+github: LiujieGu
 # linkedin: your-id
-# email: your@email.com
+email: georgeglj21@gmail.com
 
 theme: minima
