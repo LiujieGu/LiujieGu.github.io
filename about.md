@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Hi, I'm Liujie
+# Hi, I'm Gu Liujie
 
 I'm a quantitative researcher based in Shanghai, working at a quantitative hedge fund. I build systematic trading strategies for China's A-share market and the crypto market.
 
