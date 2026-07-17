@@ -3,6 +3,9 @@ description: Quantitative researcher, Tsinghua EE, sharing thoughts on quant, CV
 author: Liujie
 show_excerpts: true
 
+url: "https://liujiegu.github.io"
+baseurl: ""
+
 # 社交链接（按需填写，去掉 # 注释即可）
 # twitter: your-handle
 github: LiujieGu
