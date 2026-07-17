@@ -8,9 +8,10 @@
     html, body { margin: 0; padding: 0; background: #0d1117; overflow: hidden; height: 100%; }
     canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
     #hud {
-      position: fixed; top: 12px; left: 14px;
+      position: fixed; top: 12px; left: 14px; z-index: 10;
       font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
       color: #8b949e; user-select: none; pointer-events: none;
+      text-shadow: 0 1px 3px #000;
     }
     #hud b { color: #58a6ff; }
   </style>
@@ -35,7 +36,6 @@
     else window.addEventListener('resize', resize);
 
     const N = 80;            // visible candles
-    const STEP = 8 * DPR;    // candle width + gap
     const basePrice = 100;
     let price = basePrice;
     const candles = [];      // {o,h,l,c}
@@ -72,7 +72,9 @@
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
       }
 
-      const startX = W - candles.length * STEP;
+      const STEP = Math.min(10 * DPR, W / (N + 2));
+      const totalW = candles.length * STEP;
+      const startX = (W - totalW) / 2;
       candles.forEach((k, i) => {
         const x = startX + i * STEP;
         const up = k.c >= k.o;
@@ -81,14 +83,14 @@
         ctx.strokeStyle = col;
         ctx.lineWidth = 1 * DPR;
         ctx.beginPath();
-        ctx.moveTo(x + STEP * 0.35, yOf(k.h));
-        ctx.lineTo(x + STEP * 0.35, yOf(k.l));
+        ctx.moveTo(x + STEP * 0.5, yOf(k.h));
+        ctx.lineTo(x + STEP * 0.5, yOf(k.l));
         ctx.stroke();
         // body
         const yo = yOf(k.o), yc = yOf(k.c);
         const bh = Math.max(1 * DPR, Math.abs(yc - yo));
         ctx.fillStyle = col;
-        ctx.fillRect(x, Math.min(yo, yc), STEP * 0.7, bh);
+        ctx.fillRect(x + STEP * 0.15, Math.min(yo, yc), STEP * 0.7, bh);
       });
 
       const last = candles[candles.length - 1].c;
