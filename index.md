@@ -14,4 +14,65 @@ Hi, I'm **Gu Liujie**. This is my personal space on the web.
 
 Use the menu above to navigate. Thanks for stopping by!
 
-<p style="margin-top:3rem;color:#8b949e;font-size:0.9rem;">Dedicated to Z.J. ♡</p>
+<p id="dedicate" style="margin-top:3rem;color:#8b949e;font-size:0.9rem;cursor:pointer;user-select:none;display:inline-block;">Dedicated to Z.J. ♡</p>
+<canvas id="hearts" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:15;"></canvas>
+
+<script>
+(function () {
+  const btn = document.getElementById('dedicate');
+  const cv = document.getElementById('hearts');
+  const ctx = cv.getContext('2d');
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let W, H;
+  function size() {
+    W = cv.width = Math.round(window.innerWidth * DPR);
+    H = cv.height = Math.round(window.innerHeight * DPR);
+  }
+  size();
+  window.addEventListener('resize', size);
+
+  const hearts = [];
+  function burst() {
+    const rect = btn.getBoundingClientRect();
+    const ox = (rect.left + rect.width / 2) * DPR;
+    const oy = rect.top * DPR;
+    for (let i = 0; i < 24; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = (1 + Math.random() * 3) * DPR;
+      hearts.push({
+        x: ox, y: oy,
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 2 * DPR,
+        r: (4 + Math.random() * 5) * DPR, life: 1
+      });
+    }
+  }
+  function heart(x, y, r) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(r / 16, r / 16);
+    ctx.beginPath();
+    ctx.moveTo(0, 4);
+    ctx.bezierCurveTo(-8, -4, -16, 4, 0, 14);
+    ctx.bezierCurveTo(16, 4, 8, -4, 0, 4);
+    ctx.fillStyle = '#f778ba';
+    ctx.fill();
+    ctx.restore();
+  }
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    for (let i = hearts.length - 1; i >= 0; i--) {
+      const h = hearts[i];
+      h.vy += 0.06 * DPR;
+      h.x += h.vx; h.y += h.vy;
+      h.life -= 0.015;
+      if (h.life <= 0) { hearts.splice(i, 1); continue; }
+      ctx.globalAlpha = Math.max(0, h.life);
+      heart(h.x, h.y, h.r);
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(loop);
+  }
+  loop();
+  btn.addEventListener('click', burst);
+})();
+</script>
