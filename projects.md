@@ -10,10 +10,38 @@ A selection of open-source projects I've built or contributed to. Most live on [
 
 <div class="project-list">
 
-  <div class="project-card">
-    <h3><a href="https://github.com/LiujieGu/helix">helix</a></h3>
-    <p class="proj-desc">A C++20 numerical optimization library: a sparse convex QP/LP solver built on OSQP, with workspace reuse, warm start, and portfolio examples (mean–variance QP, alpha max LP).</p>
-    <p class="proj-meta"><span class="tag">C++20</span><span class="tag">Optimization</span><span class="tag">Quant</span></p>
+  <div class="project-card project-card--wide">
+    <div class="proj-main">
+      <h3><a href="https://github.com/LiujieGu/helix">helix</a></h3>
+      <p class="proj-desc">A C++20 numerical optimization library: a sparse convex QP/LP solver built on OSQP, with workspace reuse, warm start, and portfolio examples (mean–variance QP, alpha max LP).</p>
+      <p class="proj-meta"><span class="tag">C++20</span><span class="tag">Optimization</span><span class="tag">Quant</span></p>
+    </div>
+    <div class="proj-side">
+      <div class="side-block">
+        <span class="side-title">Features</span>
+        <ul>
+          <li>Convex QP &amp; LP (box / linear constraints)</li>
+          <li>Simplex projection &amp; O(n) linear solve</li>
+          <li>Workspace reuse &amp; warm start</li>
+          <li>Structured status diagnostics</li>
+        </ul>
+      </div>
+      <div class="side-block">
+        <span class="side-title">Performance</span>
+        <ul>
+          <li>100 vars: 0.073 ms (warm)</li>
+          <li>1k vars: 0.42 ms (warm)</li>
+          <li>5k vars: 2.10 ms (warm)</li>
+        </ul>
+      </div>
+      <div class="side-block">
+        <span class="side-title">Status</span>
+        <ul>
+          <li>Alpha · OSQP backend</li>
+          <li>Portfolio examples</li>
+        </ul>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -33,4 +61,13 @@ A selection of open-source projects I've built or contributed to. Most live on [
   .proj-desc { margin: 0 0 .6rem; color: #c9d1d9; font-size: .92rem; line-height: 1.5; }
   .proj-meta { margin: 0; font-size: .8rem; color: #8b949e; }
   .tag { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 999px; padding: 1px 8px; margin-right: 4px; font-size: .75rem; color: #8b949e; }
+  .project-card--wide { grid-column: 1 / -1; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .proj-main { flex: 1 1 300px; min-width: 260px; }
+  .proj-side { flex: 1 1 300px; min-width: 240px; display: flex; flex-direction: column; gap: .8rem; border-left: 1px solid #30363d; padding-left: 1.2rem; }
+  .side-block .side-title { display: block; font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: #58a6ff; margin-bottom: .3rem; }
+  .side-block ul { margin: 0; padding-left: 1.1rem; }
+  .side-block li { font-size: .85rem; color: #c9d1d9; line-height: 1.6; }
+  @media (max-width: 560px) {
+    .proj-side { border-left: none; padding-left: 0; }
+  }
 </style>
