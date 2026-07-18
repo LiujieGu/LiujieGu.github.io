@@ -22,7 +22,7 @@ Use the menu above to navigate. Thanks for stopping by!
 <style>
   .hero { display: flex; align-items: center; gap: 1.6rem; margin: .5rem 0 2rem; }
   .hero-avatar {
-    width: 116px; height: 116px; border-radius: 50%;
+    width: 174px; height: 174px; border-radius: 50%;
     object-fit: cover;
     padding: 4px;
     background: linear-gradient(135deg, #58a6ff, #d2a8ff, #f778ba);
