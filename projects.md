@@ -101,6 +101,12 @@ A selection of open-source projects I've built or contributed to. Most live on [
     <p class="proj-meta"><span class="tag">Python</span><span class="tag">ML</span><span class="tag">Training</span></p>
   </div>
 
+  <div class="project-card">
+    <h3>tickdata <span class="priv-badge">Private</span></h3>
+    <p class="proj-desc">L1/L2 market-data processing — parsing, normalization, and storage of full-depth tick feeds.</p>
+    <p class="proj-meta"><span class="tag">C++</span><span class="tag">Market Data</span><span class="tag">L1/L2</span></p>
+  </div>
+
 </div>
 
 ---
