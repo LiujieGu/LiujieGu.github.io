@@ -44,10 +44,40 @@ A selection of open-source projects I've built or contributed to. Most live on [
     </div>
   </div>
 
-  <div class="project-card">
-    <h3><a href="https://github.com/LiujieGu/databuffer">databuffer</a></h3>
-    <p class="proj-desc">A small Python package for sharing factor data across processes via a POSIX shared-memory ring buffer, with optional file-backed <code>mmap</code> storage. One process writes cross-sectional snapshots with <code>BufferWriter</code>; others read the latest state, a recent window, or a timestamp range with <code>BufferReader</code>.</p>
-    <p class="proj-meta"><span class="tag">Python</span><span class="tag">Shared Memory</span><span class="tag">Quant</span></p>
+  <div class="project-card project-card--wide">
+    <div class="proj-main">
+      <h3><a href="https://github.com/LiujieGu/databuffer">databuffer</a></h3>
+      <p class="proj-desc">A small Python package for sharing factor data across processes via a POSIX shared-memory ring buffer, with optional file-backed <code>mmap</code> storage. One process writes cross-sectional snapshots with <code>BufferWriter</code>; others read the latest state, a recent window, or a timestamp range with <code>BufferReader</code>.</p>
+      <p class="proj-meta"><span class="tag">Python</span><span class="tag">Shared Memory</span><span class="tag">Quant</span></p>
+    </div>
+    <div class="proj-side">
+      <div class="side-block">
+        <span class="side-title">Features</span>
+        <ul>
+          <li>POSIX shm ring buffer + optional mmap</li>
+          <li>Read latest / window / timestamp range</li>
+          <li>Version guard against torn reads</li>
+          <li>Dynamic stock-map refresh (TTL)</li>
+        </ul>
+      </div>
+      <div class="side-block">
+        <span class="side-title">API</span>
+        <ul>
+          <li><code>BufferWriter.write_data()</code></li>
+          <li><code>read_latest_data_as_dict()</code></li>
+          <li><code>read_window_data(size)</code></li>
+          <li><code>check_timestamp_continuity()</code></li>
+        </ul>
+      </div>
+      <div class="side-block">
+        <span class="side-title">Notes</span>
+        <ul>
+          <li>Single-writer, multi-reader</li>
+          <li>float32 / float64 support</li>
+          <li>loguru logging built-in</li>
+        </ul>
+      </div>
+    </div>
   </div>
 
 </div>
