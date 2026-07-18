@@ -111,6 +111,25 @@ jobs:
 In **Settings → Pages**, set Source to **GitHub Actions**. Every push to `main`
 now triggers a fresh build and deploy.
 
+### Deploy flow
+
+```
+   local edit            git push            GitHub Actions                GitHub Pages
+  ┌──────────┐         ┌──────────┐       ┌─────────────────┐          ┌──────────────┐
+  │ .md/.html│ ──push──▶│  main    │──────▶│ 1. checkout     │          │              │
+  │  changes │         │  branch  │       │ 2. setup Ruby   │──build──▶│ static site  │
+  └──────────┘         └──────────┘       │ 3. jekyll build │          │  served at   │
+                                          │ 4. upload artifact│         │ <user>.github│
+                                          │ 5. deploy-pages  │──deploy─▶│ .io          │
+                                          └─────────────────┘          └──────┬───────┘
+                                                                               │
+                                                          visitor ◀────────────┘
+                                                          https://<user>.github.io
+```
+
+Each push runs the pipeline end-to-end: build the static site, upload it as a
+Pages artifact, and publish. No local Ruby install required.
+
 ## Writing a Post
 
 Just drop a Markdown file into `_posts/` with the right name:
