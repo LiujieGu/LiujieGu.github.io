@@ -17,4 +17,5 @@ theme: minima
 header_pages:
   - about.md
   - blog.md
+  - projects.md
   - something-interesting.md
