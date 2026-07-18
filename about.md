@@ -1,5 +1,6 @@
 ---
 layout: default
+permalink: /about/
 ---
 # Hi, I'm Gu Liujie
 

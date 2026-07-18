@@ -80,6 +80,27 @@ A selection of open-source projects I've built or contributed to. Most live on [
     </div>
   </div>
 
+  <h2 class="private-head">Private Projects</h2>
+  <p class="private-note">These repositories are private. Descriptions only — no public links.</p>
+
+  <div class="project-card">
+    <h3>Factorium <span class="priv-badge">Private</span></h3>
+    <p class="proj-desc">A factor production toolkit that turns raw market data into research-ready alpha factors.</p>
+    <p class="proj-meta"><span class="tag">Python</span><span class="tag">Quant</span><span class="tag">Factors</span></p>
+  </div>
+
+  <div class="project-card">
+    <h3>tsdb <span class="priv-badge">Private</span></h3>
+    <p class="proj-desc">A local high-performance time-series database tuned for low-latency factor and tick storage.</p>
+    <p class="proj-meta"><span class="tag">C++</span><span class="tag">Database</span><span class="tag">Low-latency</span></p>
+  </div>
+
+  <div class="project-card">
+    <h3>ChronoForge <span class="priv-badge">Private</span></h3>
+    <p class="proj-desc">A model training framework for ML/CV experiments and backtesting loops.</p>
+    <p class="proj-meta"><span class="tag">Python</span><span class="tag">ML</span><span class="tag">Training</span></p>
+  </div>
+
 </div>
 
 ---
@@ -114,5 +135,14 @@ A selection of open-source projects I've built or contributed to. Most live on [
   }
   @media (max-width: 560px) {
     .proj-side { border-left: none; padding-left: 0; }
+  }
+  .private-head { margin: 2.2rem 0 .2rem; font-size: 1.25rem; }
+  .private-note { margin: 0 0 1.2rem; color: #8b949e; font-size: .88rem; }
+  .priv-badge {
+    display: inline-block; vertical-align: middle;
+    background: #21262d; border: 1px solid #30363d; border-radius: 999px;
+    padding: 0 8px; margin-left: 6px;
+    font-size: .68rem; letter-spacing: .04em; text-transform: uppercase;
+    color: #f0883e;
   }
 </style>
