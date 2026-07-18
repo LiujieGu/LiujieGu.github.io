@@ -2,9 +2,13 @@
 layout: default
 ---
 
-# Welcome
-
-Hi, I'm **Gu Liujie**. This is my personal space on the web.
+<div class="hero">
+  <img class="hero-avatar" src="/assets/profile.png" alt="Gu Liujie">
+  <div class="hero-text">
+    <h1>Gu Liujie</h1>
+    <p class="hero-sub">Quantitative researcher · CV &amp; AI · building things for fun</p>
+  </div>
+</div>
 
 ## Explore
 
@@ -14,6 +18,24 @@ Hi, I'm **Gu Liujie**. This is my personal space on the web.
 - ✨ **[Something Interesting](/something-interesting/)** — random stuff I find fun
 
 Use the menu above to navigate. Thanks for stopping by!
+
+<style>
+  .hero { display: flex; align-items: center; gap: 1.6rem; margin: .5rem 0 2rem; }
+  .hero-avatar {
+    width: 116px; height: 116px; border-radius: 50%;
+    object-fit: cover;
+    padding: 4px;
+    background: linear-gradient(135deg, #58a6ff, #d2a8ff, #f778ba);
+    box-shadow: 0 6px 24px rgba(88,166,255,.25);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .hero-avatar:hover { transform: scale(1.04); box-shadow: 0 10px 32px rgba(215,168,255,.4); }
+  .hero-text h1 { margin: 0 0 .3rem; font-size: 1.9rem; }
+  .hero-sub { margin: 0; color: #8b949e; font-size: .98rem; }
+  @media (max-width: 480px) {
+    .hero { flex-direction: column; text-align: center; }
+  }
+</style>
 
 <p id="dedicate" style="margin-top:3rem;color:#8b949e;font-size:0.9rem;opacity:0;transition:opacity .4s;user-select:none;">Dedicated to Z.J. ♡</p>
 <canvas id="hearts" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:15;"></canvas>
