@@ -11,15 +11,9 @@ A selection of open-source projects I've built or contributed to. Most live on [
 <div class="project-list">
 
   <div class="project-card">
-    <h3><a href="https://github.com/LiujieGu">Project Name</a></h3>
-    <p class="proj-desc">Short description of what this project does and why it's interesting. One or two sentences is enough.</p>
-    <p class="proj-meta"><span class="tag">Python</span><span class="tag">Quant</span> ★ <span class="stars">0</span></p>
-  </div>
-
-  <div class="project-card">
-    <h3><a href="https://github.com/LiujieGu">Another Project</a></h3>
-    <p class="proj-desc">Another short description. Replace these placeholders with your real public repos.</p>
-    <p class="proj-meta"><span class="tag">C++</span><span class="tag">CV</span> ★ <span class="stars">0</span></p>
+    <h3><a href="https://github.com/LiujieGu/helix">helix</a></h3>
+    <p class="proj-desc">A C++20 numerical optimization library: a sparse convex QP/LP solver built on OSQP, with workspace reuse, warm start, and portfolio examples (mean–variance QP, alpha max LP).</p>
+    <p class="proj-meta"><span class="tag">C++20</span><span class="tag">Optimization</span><span class="tag">Quant</span></p>
   </div>
 
 </div>
