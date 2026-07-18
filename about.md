@@ -12,6 +12,17 @@ I'm a quantitative researcher based in Shanghai, working at a quantitative hedge
 - 🎓 B.S. in Electronic Science and Technology, Fudan University
 - 🏋️ Hobbies: fitness, football, and gaming
 
+## Private Work
+
+Beyond the public repos above, I also maintain several **private projects** that
+I can't share openly. They mostly fall into:
+
+- 🔒 Proprietary quant research — alpha signals, execution, and risk systems for A-share and crypto strategies
+- 🔒 Internal tooling — data pipelines and shared-memory infrastructure used in production
+- 🔒 Exploratory ML/CV experiments — ideas I iterate on before they're ready to talk about
+
+These stay private for confidentiality, but they shape a lot of what I write here.
+
 ## Contact
 
 - Email: georgeglj21@gmail.com
