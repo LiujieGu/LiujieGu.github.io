@@ -44,6 +44,12 @@ A selection of open-source projects I've built or contributed to. Most live on [
     </div>
   </div>
 
+  <div class="project-card">
+    <h3><a href="https://github.com/LiujieGu/databuffer">databuffer</a></h3>
+    <p class="proj-desc">A small Python package for sharing factor data across processes via a POSIX shared-memory ring buffer, with optional file-backed <code>mmap</code> storage. One process writes cross-sectional snapshots with <code>BufferWriter</code>; others read the latest state, a recent window, or a timestamp range with <code>BufferReader</code>.</p>
+    <p class="proj-meta"><span class="tag">Python</span><span class="tag">Shared Memory</span><span class="tag">Quant</span></p>
+  </div>
+
 </div>
 
 ---
