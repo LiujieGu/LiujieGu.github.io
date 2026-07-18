@@ -21,6 +21,12 @@ I can't share openly. They mostly fall into:
 - 🔒 Internal tooling — data pipelines and shared-memory infrastructure used in production
 - 🔒 Exploratory ML/CV experiments — ideas I iterate on before they're ready to talk about
 
+A few of the larger private codebases I've built and maintain:
+
+- **Factorium** — a factor production toolkit that turns raw market data into research-ready alpha factors (private)
+- **tsdb** — a local high-performance time-series database tuned for low-latency factor and tick storage (private)
+- **ChronoForge** — a model training framework I use for ML/CV experiments and backtesting loops (private)
+
 These stay private for confidentiality, but they shape a lot of what I write here.
 
 ## Contact
