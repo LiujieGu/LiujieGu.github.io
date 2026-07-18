@@ -103,6 +103,15 @@ A selection of open-source projects I've built or contributed to. Most live on [
   .side-block .side-title { display: block; font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: #58a6ff; margin-bottom: .3rem; }
   .side-block ul { margin: 0; padding-left: 1.1rem; }
   .side-block li { font-size: .85rem; color: #c9d1d9; line-height: 1.6; }
+  .project-card code {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    padding: .08em .4em;
+    color: #79c0ff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .85em;
+  }
   @media (max-width: 560px) {
     .proj-side { border-left: none; padding-left: 0; }
   }
